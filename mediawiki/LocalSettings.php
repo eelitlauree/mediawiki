@@ -297,15 +297,6 @@ $wgPopupsHideOptInOnPreferencesPage = true;
 $wgPopupsOptInDefaultState = '1';
 $wgPopupsReferencePreviewsBetaFeature = false;
 
-
-# intranet smtp setting
-$wgSMTP = [
-    'host'     => '10.253.1.76', // could also be an IP address. Where the SMTP server is located
-    'IDHost'   => 'mediwiki.esquel.com',      // Generally this will be the domain name of your website (aka mywiki.org)
-    'port'     => 25,                 // Port to use when connecting to the SMTP server
-    'auth'     => false
-];
-
 # Project Lego extensions
 wfLoadExtension( 'ApprovedRevs' );
 
