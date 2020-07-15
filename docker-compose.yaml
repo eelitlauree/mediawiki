@@ -1,0 +1,56 @@
+# MediaWiki with MariaDB
+#
+# Access via "http://localhost:80"
+version: '3'
+services:
+  mediawiki:
+    build:
+      context: ./mediawiki 
+    image: my/mediawiki/latest
+    hostname: mediawiki
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - /var/www/html/images
+      # After initial setup, download LocalSettings.php to the same directory as
+      # this yaml and uncomment the following line and use compose to restart
+      # the mediawiki service
+      - ./mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php
+    networks:
+      - wiki
+
+  parsoid:
+    image: thenets/parsoid:0.11
+    hostname: parsoid
+    environment: 
+      PARSOID_DOMAIN_mediawiki: "http://mediawiki/api.php"
+    networks:
+      - wiki
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      # @see https://phabricator.wikimedia.org/source/mediawiki/browse/master/includes/DefaultSettings.php
+      MYSQL_DATABASE: my_wiki
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD: "example" 
+      MYSQL_ROOT_PASSWORD: 'test123'
+    networks:
+      - wiki
+    volumes: 
+      - "mysqldb:/var/lib/mysql"
+      - "./mysql/my_wiki.sql:/docker-entrypoint-initdb.d/my_wiki.sql"
+
+  redis:
+    image: redis
+    hostname: redis
+    networks:
+      - wiki
+
+networks:
+  wiki:
+
+volumes:
+  mysqldb:
