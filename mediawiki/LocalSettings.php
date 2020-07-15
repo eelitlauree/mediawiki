@@ -298,7 +298,6 @@ $wgPopupsOptInDefaultState = '1';
 $wgPopupsReferencePreviewsBetaFeature = false;
 
 # Project Lego extensions
-wfLoadExtension( 'ApprovedRevs' );
 
 $wgGroupPermissions['*']['viewlinktolatest'] = false;
 $wgGroupPermissions['sysop']['approverevisions'] = true;
@@ -310,3 +309,5 @@ $wgGroupPermissions['Gatekeeper']['viewlinktolatest'] = true;
 $wgGroupPermissions['Gatekeeper']['viewapprover'] = true;
 
 $wgShowExceptionDetails = true;
+
+wfLoadExtension( 'Moderation' );

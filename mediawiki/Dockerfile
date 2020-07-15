@@ -96,8 +96,6 @@ RUN cd /var/www/html/extensions \
 
 
 RUN cd /var/www/html/extensions \
-    && curl -LJO https://extdist.wmflabs.org/dist/extensions/ApprovedRevs-REL1_34-cdd334c.tar.gz \
-    && tar -zxvf ApprovedRevs-REL1_34-cdd334c.tar.gz \
-    && rm -f ApprovedRevs-REL1_34-cdd334c.tar.gz
+    && git clone https://github.com/edwardspec/mediawiki-moderation.git Moderation 
 
 ADD ./LocalSettings.php /var/www/html/LocalSettings.php
